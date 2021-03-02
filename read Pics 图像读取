@@ -1,0 +1,7 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import cv2
+
+pic = np.zeros(shape = (5,720,1280),dtype = np.uint8)
+#因为图片是0-255的uint8型的矩阵，所以初始化pic的矩阵时候要特别指定数据类型是uint8，而不是float64
