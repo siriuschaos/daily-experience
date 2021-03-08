@@ -1,0 +1,11 @@
+#由于list内的元素是可以为任何类型，且可以不相同的所以可以借助list生成一系列变量名。
+#下面将读取一个含有多页图片的tif文件，并对tif文件的每一页图片赋予一个变量名
+
+from PIL import Image,ImageSequence
+PIL_img = Image.open(r'F:\test.tif')
+nums = PIL_img.n_frames #获取页数
+A = [None]*nums #创建一个长度是nums的list
+
+for i,frame in enumerate(ImageSequence.Iterator(PIL_img)):
+    A[i] = frame
+#此时PIL_img中的每一个图片(frame)都存在了list中，名字是A[i]，i取0到29
