@@ -1,0 +1,25 @@
+要给一系列波前(N个波前)赋不同的值时，无论是用enumerate还是zip进行for循环发现最后这N个波前的值都等于循环最后一次时候对应的波前的值
+考虑是因为创建波前的list时候，是用的[element]*N,此时这个list里面每个element元素都公用同一个内存，循环进行赋值时候每个element就都一起被赋值了
+当改成[element,element,...,element]时候，就不会有这种情况了
+import numpy as np
+import pyoptica as po
+import astropy.units as u
+
+wavelength = 500 * u.nm
+pixel_scale = 0.022 * u.mm
+npix = 5
+
+wf = [po.Wavefront(wavelength, pixel_scale, npix)]*3
+wf_initial0 = [po.Wavefront(wavelength, pixel_scale, npix),
+               po.Wavefront(wavelength, pixel_scale, npix),
+               po.Wavefront(wavelength, pixel_scale, npix)]
+field = [np.ones(shape = (npix,npix))]*3
+for i,j in enumerate(field):
+    field[i] = (i+1)*j
+    
+for i,j in enumerate(field):
+    wf_initial0[i].wavefront = j
+    print('num = %d' %i)
+    print(wf_initial0[0].wavefront)
+    print(wf_initial0[1].wavefront)
+    print(wf_initial0[2].wavefront)
