@@ -1,0 +1,14 @@
+一般只能用np.argmax()求数组的最大值第一次出现位置的索引，如果数组内有几个相同的最大值：
+用np.argwhere和np.argmax组合求所有最大值的位置，例如：
+a = np.array([11,234,324,11,21,1234,1234,1234])
+b = np.argwhere(a==a[np.argmax(a)])
+b
+Out[1]：
+array([[5],
+       [6],
+       [7]], dtype=int64)
+a[b]
+Out[2]: 
+array([[1234],
+       [1234],
+       [1234]])
